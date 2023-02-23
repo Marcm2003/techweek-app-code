@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+  name: {{ .Release.Name }}
+spec:
+  rules:
+  - host: {{ .Values.env }}.localtest.me
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Release.Name }}
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
